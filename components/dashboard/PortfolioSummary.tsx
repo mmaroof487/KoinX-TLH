@@ -24,10 +24,10 @@ function StatCard({ icon, label, value, sub, subColor, tooltip }: StatCardProps)
   return (
     <div className="card p-5 card-hover">
       <div className="flex items-start justify-between mb-3">
-        <span className="text-xs font-medium text-ink-500 uppercase tracking-wide">{label}</span>
+        <span className="text-[11px] font-bold text-ink-500/80 uppercase tracking-widest">{label}</span>
         <div className="p-1.5 rounded-lg bg-surface-100 text-ink-400">{icon}</div>
       </div>
-      <p className="text-xl font-display font-semibold text-ink-900">{value}</p>
+      <p className="text-3xl font-display font-bold text-ink-900 tracking-tight">{value}</p>
       {sub && (
         <p className={`mt-1 text-xs font-medium ${subColor ?? "text-ink-400"}`}>{sub}</p>
       )}

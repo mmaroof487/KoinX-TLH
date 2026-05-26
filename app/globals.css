@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply bg-surface-50 text-ink-900 font-sans;
+    @apply bg-surface-100/50 text-ink-900 font-sans;
     font-size: 14px;
     line-height: 1.5;
   }
@@ -30,7 +30,7 @@
   }
 
   .card-hover {
-    @apply transition-shadow duration-200 hover:shadow-card-hover;
+    @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
   }
 
   .badge-gain {

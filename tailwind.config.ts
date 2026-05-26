@@ -51,8 +51,9 @@ const config: Config = {
       },
       boxShadow: {
         card: "0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05)",
-        "card-hover": "0 4px 12px 0 rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06)",
-        modal: "0 20px 60px -10px rgb(0 0 0 / 0.15)",
+        "card-hover": "0 10px 40px -10px rgb(0 0 0 / 0.12), 0 4px 6px -4px rgb(0 0 0 / 0.05)",
+        modal: "0 20px 60px -10px rgb(0 0 0 / 0.25)",
+        "button-glow": "0 0 20px rgba(37, 99, 235, 0.4)",
       },
       borderRadius: {
         "2xl": "1rem",

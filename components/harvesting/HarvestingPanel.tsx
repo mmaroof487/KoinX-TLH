@@ -26,18 +26,18 @@ interface CompareRowProps {
 function CompareRow({ label, before, after, positive, highlight }: CompareRowProps) {
   return (
     <div className={cn(
-      "flex items-center justify-between py-3 border-b border-surface-100 last:border-0",
-      highlight && "bg-brand-50 -mx-5 px-5 rounded-xl"
+      "flex items-center justify-between py-3.5 border-b border-white/5 last:border-0",
+      highlight && "bg-brand-500/10 -mx-5 px-5"
     )}>
-      <span className="text-sm text-ink-500">{label}</span>
+      <span className="text-sm text-ink-300 font-medium tracking-wide">{label}</span>
       <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-ink-700">{before}</span>
-        <ArrowRight className="w-3.5 h-3.5 text-ink-300 flex-shrink-0" />
+        <span className="text-sm font-medium text-ink-100">{before}</span>
+        <ArrowRight className="w-3.5 h-3.5 text-ink-500 flex-shrink-0" />
         <span className={cn(
-          "text-sm font-semibold",
-          positive === true && "text-gain-600",
-          positive === false && "text-loss-600",
-          positive === undefined && "text-ink-900"
+          "text-sm font-semibold tracking-tight",
+          positive === true && "text-gain-400",
+          positive === false && "text-loss-400",
+          positive === undefined && "text-white"
         )}>
           {after}
         </span>
@@ -61,14 +61,14 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
   }
 
   return (
-    <div className="card overflow-hidden animate-slide-up">
+    <div className="rounded-[1.25rem] overflow-hidden shadow-2xl bg-gradient-to-br from-ink-900 to-slate-900 border border-ink-800 animate-slide-up text-white ring-1 ring-white/10">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-surface-100 bg-gradient-to-r from-brand-50 to-white">
-        <div className="flex items-center gap-2 mb-1">
-          <Sparkles className="w-4 h-4 text-brand-600" />
-          <h2 className="font-display font-semibold text-ink-900">Tax Impact Summary</h2>
+      <div className="px-5 py-5 border-b border-white/5 bg-white/5">
+        <div className="flex items-center gap-2 mb-1.5">
+          <Sparkles className="w-5 h-5 text-brand-400" />
+          <h2 className="font-display font-semibold text-white text-lg tracking-tight">Tax Impact Summary</h2>
         </div>
-        <p className="text-xs text-ink-500">
+        <p className="text-xs text-ink-300/80 font-medium tracking-wide">
           {selectedCount === 0
             ? "Select assets in loss to see your potential tax savings"
             : `${selectedCount} asset${selectedCount > 1 ? "s" : ""} selected for harvesting`}
@@ -79,8 +79,8 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
         {/* Before/After comparison */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wide text-ink-400">Before Harvesting</span>
-            <span className="text-xs font-semibold uppercase tracking-wide text-brand-600">After Harvesting</span>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-ink-500">Before Harvesting</span>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-brand-400">After Harvesting</span>
           </div>
 
           <CompareRow
@@ -105,24 +105,25 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
 
         {/* Savings highlight */}
         {hasSavings && selectedCount > 0 ? (
-          <div className="mb-4 p-4 rounded-xl bg-gain-50 border border-gain-100">
-            <div className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-gain-600 flex-shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 rounded-xl bg-gain-500/10 border border-gain-500/20 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-gain-500/0 via-gain-500/10 to-gain-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+            <div className="flex items-start gap-3 relative">
+              <CheckCircle2 className="w-5 h-5 text-gain-400 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm font-semibold text-gain-700">
+                <p className="text-sm font-semibold text-gain-300 tracking-tight">
                   You can save {fmt.usd(harvestingResult.taxSavings)}!
                 </p>
-                <p className="text-xs text-gain-600 mt-0.5">
+                <p className="text-xs text-gain-200/60 mt-1 font-medium">
                   That's a {harvestingResult.savingsPct.toFixed(1)}% reduction in your tax liability.
                 </p>
               </div>
             </div>
           </div>
         ) : selectedCount > 0 && !hasSavings ? (
-          <div className="mb-4 p-4 rounded-xl bg-surface-100 border border-surface-200">
-            <div className="flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-ink-400 flex-shrink-0 mt-0.5" />
-              <p className="text-xs text-ink-500">
+          <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-ink-400 flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-ink-400 font-medium leading-relaxed">
                 Selected assets don't reduce your current tax liability. Try selecting different assets.
               </p>
             </div>
@@ -131,12 +132,15 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
 
         {/* CTA */}
         <Button
-          className="w-full"
+          className={cn(
+            "w-full h-12 shadow-xl",
+            (!hasSavings || selectedCount === 0) && "bg-white/10 text-white/50 hover:bg-white/10 border-transparent hover:shadow-none hover:-translate-y-0"
+          )}
           size="lg"
           disabled={selectedCount === 0 || !hasSavings}
           onClick={onHarvest}
         >
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className={cn("w-4 h-4", (!hasSavings || selectedCount === 0) ? "opacity-50" : "text-brand-200")} />
           {selectedCount === 0
             ? "Select assets to harvest"
             : hasSavings
@@ -144,8 +148,8 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
             : "No savings available"}
         </Button>
 
-        <p className="mt-2 text-center text-xs text-ink-400">
-          Tax harvesting is simulated. Consult a tax advisor before acting.
+        <p className="mt-4 text-center text-[11px] font-medium text-ink-500 tracking-wide uppercase">
+          Tax harvesting is simulated
         </p>
       </div>
     </div>

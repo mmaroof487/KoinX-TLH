@@ -94,8 +94,8 @@ export function HoldingsTable({
           tabIndex={sortK ? 0 : undefined}
           aria-sort={sortK === sortKey ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
           className={cn(
-            "inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-ink-400",
-            sortK && "cursor-pointer hover:text-ink-700 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+            "inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-ink-400/80",
+            sortK && "cursor-pointer hover:text-ink-900 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded transition-colors"
           )}
           onClick={() => sortK && handleSort(sortK)}
           onKeyDown={(e) => {
@@ -170,10 +170,10 @@ export function HoldingsTable({
                     role={highlightLosses && isLoss ? "button" : "row"}
                     tabIndex={highlightLosses && isLoss ? 0 : undefined}
                     className={cn(
-                      "border-b border-surface-50 transition-colors last:border-0",
-                      highlightLosses && isLoss && "hover:bg-loss-50/40 cursor-pointer focus-visible:outline-none focus-visible:bg-loss-50/40",
-                      highlightLosses && isLoss && isSelected && "bg-loss-50/60",
-                      highlightLosses && !isLoss && "opacity-50"
+                      "border-b border-surface-100/50 transition-all duration-300 last:border-0 relative",
+                      highlightLosses && isLoss && "hover:bg-brand-50/60 cursor-pointer focus-visible:outline-none focus-visible:bg-brand-50/60 hover:shadow-[inset_4px_0_0_0_#2563eb]",
+                      highlightLosses && isLoss && isSelected && "bg-brand-50/80 shadow-[inset_4px_0_0_0_#2563eb]",
+                      highlightLosses && !isLoss && "opacity-40 grayscale-[30%]"
                     )}
                     onClick={() => highlightLosses && isLoss && onToggle(asset.id)}
                     onKeyDown={(e) => {
