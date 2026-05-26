@@ -8,9 +8,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  primary: "bg-brand-600 text-white shadow-sm hover:bg-brand-500 hover:shadow-button-glow hover:-translate-y-0.5 disabled:hover:shadow-none disabled:hover:translate-y-0 disabled:bg-surface-200 disabled:text-ink-400 disabled:cursor-not-allowed",
-  secondary: "bg-white text-ink-700 border border-surface-200 hover:bg-surface-50 disabled:opacity-50 disabled:cursor-not-allowed",
-  ghost: "bg-transparent text-ink-600 hover:bg-surface-100 disabled:opacity-50 disabled:cursor-not-allowed",
+  primary: "bg-brand-500 text-surface-50 shadow-sm hover:bg-brand-400 hover:shadow-button-glow hover:-translate-y-0.5 disabled:hover:shadow-none disabled:hover:translate-y-0 disabled:bg-surface-200 disabled:text-ink-400 disabled:cursor-not-allowed",
+  secondary: "bg-surface-100 text-ink-900 border border-white/5 hover:bg-surface-200 hover:border-white/10 disabled:opacity-50 disabled:cursor-not-allowed",
+  ghost: "bg-transparent text-ink-500 hover:text-ink-900 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed",
   danger: "bg-loss-500 text-white hover:bg-loss-600 disabled:opacity-50 disabled:cursor-not-allowed",
 };
 

@@ -18,15 +18,25 @@
   }
 
   body {
-    @apply bg-surface-100/50 text-ink-900 font-sans;
+    @apply bg-surface-50 text-ink-900 font-sans;
     font-size: 14px;
     line-height: 1.5;
+    background-image: radial-gradient(circle at 50% -20%, rgba(0, 255, 204, 0.03) 0%, transparent 50%);
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white rounded-2xl border border-surface-200 shadow-card;
+    @apply bg-surface-100 rounded-2xl shadow-card relative overflow-hidden;
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: inherit;
   }
 
   .card-hover {

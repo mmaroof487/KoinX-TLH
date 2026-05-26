@@ -7,14 +7,13 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import type { CryptoAsset } from "@/types";
 
 const COLORS = [
-  "#2563eb", // brand-600
-  "#4f46e5", // indigo-600
-  "#0ea5e9", // sky-500
-  "#0d9488", // teal-600
-  "#8b5cf6", // violet-500
-  "#64748b", // slate-500
-  "#0f172a", // slate-900
-  "#94a3b8", // slate-400
+  "#00ffcc", // brand-500
+  "#33ffd6", // brand-400
+  "#00ccaa", // brand-600
+  "#009980", // brand-700
+  "#99ffeb", // brand-200
+  "#a3a3a3", // ink-500
+  "#525252", // ink-300
 ];
 
 interface Props {
@@ -31,7 +30,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   const d = payload[0];
   return (
-    <div className="backdrop-blur-xl bg-ink-900/90 text-white text-xs px-4 py-3 rounded-xl shadow-2xl border border-white/10">
+    <div className="backdrop-blur-xl bg-surface-50/90 text-ink-900 text-xs px-4 py-3 rounded-xl shadow-[0_0_20px_rgba(0,255,204,0.1)] border border-white/10">
       <p className="font-bold tracking-widest uppercase text-[10px] text-ink-300 mb-1">{d.name}</p>
       <p className="text-sm font-semibold">{fmt.usd(d.value)}</p>
       <p className="text-ink-400 font-medium mt-0.5">{d.payload.pct.toFixed(1)}% of portfolio</p>

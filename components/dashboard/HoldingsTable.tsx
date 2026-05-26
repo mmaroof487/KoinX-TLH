@@ -82,8 +82,8 @@ export function HoldingsTable({
   function SortIcon({ k }: { k: SortKey }) {
     if (sortKey !== k) return <ArrowUpDown className="w-3 h-3 text-ink-300" />;
     return sortDir === "asc"
-      ? <ArrowUp className="w-3 h-3 text-brand-600" />
-      : <ArrowDown className="w-3 h-3 text-brand-600" />;
+      ? <ArrowUp className="w-3 h-3 text-brand-500" />
+      : <ArrowDown className="w-3 h-3 text-brand-500" />;
   }
 
   function ColHeader({ label, sortK, tooltip }: { label: string; sortK?: SortKey; tooltip?: string }) {
@@ -94,7 +94,7 @@ export function HoldingsTable({
           tabIndex={sortK ? 0 : undefined}
           aria-sort={sortK === sortKey ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
           className={cn(
-            "inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-ink-400/80",
+            "inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-ink-500/80",
             sortK && "cursor-pointer hover:text-ink-900 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded transition-colors"
           )}
           onClick={() => sortK && handleSort(sortK)}
@@ -129,7 +129,7 @@ export function HoldingsTable({
         {highlightLosses && lossIds.length > 0 && (
           <button
             onClick={() => allLossSelected ? onClearAll() : onSelectAll(lossIds)}
-            className="text-xs font-medium text-brand-600 hover:text-brand-700 transition-colors"
+            className="text-xs font-medium text-brand-500 hover:text-brand-400 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.5)] transition-all"
           >
             {allLossSelected ? "Deselect all losses" : "Select all losses"}
           </button>
@@ -138,7 +138,7 @@ export function HoldingsTable({
 
       <div className="table-scroll rounded-b-2xl">
         <table className="w-full min-w-[680px]">
-          <thead className="bg-surface-50 border-b border-surface-100">
+          <thead className="bg-surface-50/50 border-b border-surface-200">
             <tr>
               {highlightLosses && <th className="w-10 px-4" />}
               <ColHeader label="Asset" sortK="name" />
@@ -170,9 +170,9 @@ export function HoldingsTable({
                     role={highlightLosses && isLoss ? "button" : "row"}
                     tabIndex={highlightLosses && isLoss ? 0 : undefined}
                     className={cn(
-                      "border-b border-surface-100/50 transition-all duration-300 last:border-0 relative",
-                      highlightLosses && isLoss && "hover:bg-brand-50/60 cursor-pointer focus-visible:outline-none focus-visible:bg-brand-50/60 hover:shadow-[inset_4px_0_0_0_#2563eb]",
-                      highlightLosses && isLoss && isSelected && "bg-brand-50/80 shadow-[inset_4px_0_0_0_#2563eb]",
+                      "border-b border-surface-200/50 transition-all duration-300 last:border-0 relative",
+                      highlightLosses && isLoss && "hover:bg-brand-500/5 cursor-pointer focus-visible:outline-none focus-visible:bg-brand-500/10 hover:shadow-[inset_4px_0_0_0_#00ffcc]",
+                      highlightLosses && isLoss && isSelected && "bg-brand-500/10 shadow-[inset_4px_0_0_0_#00ffcc]",
                       highlightLosses && !isLoss && "opacity-40 grayscale-[30%]"
                     )}
                     onClick={() => highlightLosses && isLoss && onToggle(asset.id)}
@@ -193,7 +193,7 @@ export function HoldingsTable({
                             onChange={() => onToggle(asset.id)}
                             onClick={(e) => e.stopPropagation()}
                             tabIndex={-1} // Handled by row
-                            className="w-4 h-4 rounded accent-brand-600 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                            className="w-4 h-4 rounded accent-brand-500 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                           />
                         )}
                       </td>

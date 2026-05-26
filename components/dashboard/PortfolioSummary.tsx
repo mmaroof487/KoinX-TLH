@@ -24,8 +24,8 @@ function StatCard({ icon, label, value, sub, subColor, tooltip }: StatCardProps)
   return (
     <div className="card p-5 card-hover">
       <div className="flex items-start justify-between mb-3">
-        <span className="text-[11px] font-bold text-ink-500/80 uppercase tracking-widest">{label}</span>
-        <div className="p-1.5 rounded-lg bg-surface-100 text-ink-400">{icon}</div>
+        <span className="text-[11px] font-bold text-ink-500 uppercase tracking-widest">{label}</span>
+        <div className="p-1.5 rounded-lg bg-white/5 text-ink-400">{icon}</div>
       </div>
       <p className="text-3xl font-display font-bold text-ink-900 tracking-tight">{value}</p>
       {sub && (
@@ -76,7 +76,7 @@ export function PortfolioSummaryCards({ summary, loading }: Props) {
         label="Est. Tax Liability"
         value={fmt.usd(summary.estimatedTax)}
         sub="@ 30% + 4% cess"
-        subColor="text-loss-600"
+        subColor="text-loss-500"
       />
     </div>
   );

@@ -29,9 +29,9 @@ function CompareRow({ label, before, after, positive, highlight }: CompareRowPro
       "flex items-center justify-between py-3.5 border-b border-white/5 last:border-0",
       highlight && "bg-brand-500/10 -mx-5 px-5"
     )}>
-      <span className="text-sm text-ink-300 font-medium tracking-wide">{label}</span>
+      <span className="text-sm text-ink-500 font-medium tracking-wide">{label}</span>
       <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-ink-100">{before}</span>
+        <span className="text-sm font-medium text-ink-700">{before}</span>
         <ArrowRight className="w-3.5 h-3.5 text-ink-500 flex-shrink-0" />
         <span className={cn(
           "text-sm font-semibold tracking-tight",
@@ -61,14 +61,15 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
   }
 
   return (
-    <div className="rounded-[1.25rem] overflow-hidden shadow-2xl bg-gradient-to-br from-ink-900 to-slate-900 border border-ink-800 animate-slide-up text-white ring-1 ring-white/10">
+    <div className="rounded-[1.25rem] overflow-hidden shadow-[0_0_40px_rgba(0,255,204,0.1)] bg-gradient-to-br from-surface-100 to-surface-300 border border-brand-500/20 animate-slide-up text-ink-900 ring-1 ring-white/5 relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/10 via-transparent to-transparent pointer-events-none" />
       {/* Header */}
-      <div className="px-5 py-5 border-b border-white/5 bg-white/5">
+      <div className="px-5 py-5 border-b border-white/5 bg-white/5 relative">
         <div className="flex items-center gap-2 mb-1.5">
           <Sparkles className="w-5 h-5 text-brand-400" />
-          <h2 className="font-display font-semibold text-white text-lg tracking-tight">Tax Impact Summary</h2>
+          <h2 className="font-display font-semibold text-ink-900 text-lg tracking-tight">Tax Impact Summary</h2>
         </div>
-        <p className="text-xs text-ink-300/80 font-medium tracking-wide">
+        <p className="text-xs text-ink-500 font-medium tracking-wide">
           {selectedCount === 0
             ? "Select assets in loss to see your potential tax savings"
             : `${selectedCount} asset${selectedCount > 1 ? "s" : ""} selected for harvesting`}
@@ -140,7 +141,7 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
           disabled={selectedCount === 0 || !hasSavings}
           onClick={onHarvest}
         >
-          <Sparkles className={cn("w-4 h-4", (!hasSavings || selectedCount === 0) ? "opacity-50" : "text-brand-200")} />
+          <Sparkles className={cn("w-4 h-4", (!hasSavings || selectedCount === 0) ? "opacity-50" : "text-surface-50")} />
           {selectedCount === 0
             ? "Select assets to harvest"
             : hasSavings
