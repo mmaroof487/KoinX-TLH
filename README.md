@@ -4,6 +4,12 @@ A production-grade crypto tax dashboard built for the **KoinX Frontend Intern As
 
 **[Live Demo →](https://koinx-tlh.vercel.app)** _(deploy to Vercel to activate)_
 
+![Hero Screenshot](./public/hero-screenshot.png)
+
+<div align="center">
+  <img src="./public/mobile-screenshot.png" alt="Mobile View" width="300" />
+</div>
+
 ---
 
 ## Features
@@ -16,6 +22,7 @@ A production-grade crypto tax dashboard built for the **KoinX Frontend Intern As
 - **Success Modal** — Confirmation of simulated harvest with a summary
 - **Loading & Error States** — Skeleton loaders, error fallback with retry
 - **Mobile-First Responsive** — Works cleanly on 320px → 1440px+
+- **Production Ready** — Strict TypeScript, linted, accessible (WCAG compliant), and optimized for performance.
 
 ---
 
@@ -115,5 +122,3 @@ Rather than collapsing columns (which loses information density), the table uses
 | Recharts | Mature, SSR-safe; D3 would give more control but far more code |
 | No React Query | Portfolio is loaded once per session; SWR/RQ overhead not justified for mock data |
 | Flat 30% tax rate | Simplification; real India crypto tax has nuances around VDA classification |
-
-# KoinX-TLH

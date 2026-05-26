@@ -34,10 +34,12 @@ export default function TaxHarvestingPage() {
   const loading = status === "loading" || status === "idle";
   const summary = useMemo(
     () => (status === "success" ? getSummary() : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [status, assets, getSummary]
   );
   const harvestingResult = useMemo(
     () => (status === "success" ? getHarvestingResult() : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [status, assets, selectedIds, getHarvestingResult]
   );
   const lossAssets = useMemo(() => getLossAssets(assets), [assets]);

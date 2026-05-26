@@ -10,27 +10,26 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.400.0",
     "next": "14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "zustand": "^4.5.2",
     "recharts": "^2.12.7",
-    "clsx": "^2.1.1",
     "tailwind-merge": "^2.3.0",
-    "lucide-react": "^0.400.0",
-    "@radix-ui/react-tooltip": "^1.1.2",
-    "@radix-ui/react-dialog": "^1.1.1",
-    "@radix-ui/react-checkbox": "^1.1.1",
-    "@radix-ui/react-tabs": "^1.1.0",
-    "@radix-ui/react-switch": "^1.1.0",
-    "framer-motion": "^11.3.0"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.6",
     "postcss": "^8.4.39",
+    "puppeteer": "^25.1.0",
     "tailwindcss": "^3.4.6",
     "typescript": "^5"
   }

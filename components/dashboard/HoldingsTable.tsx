@@ -90,11 +90,20 @@ export function HoldingsTable({
     return (
       <th className="px-4 py-3 text-left whitespace-nowrap">
         <div
+          role={sortK ? "button" : undefined}
+          tabIndex={sortK ? 0 : undefined}
+          aria-sort={sortK === sortKey ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
           className={cn(
             "inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-ink-400",
-            sortK && "cursor-pointer hover:text-ink-700 select-none"
+            sortK && "cursor-pointer hover:text-ink-700 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
           )}
           onClick={() => sortK && handleSort(sortK)}
+          onKeyDown={(e) => {
+            if (sortK && (e.key === "Enter" || e.key === " ")) {
+              e.preventDefault();
+              handleSort(sortK);
+            }
+          }}
         >
           {label}
           {sortK && <SortIcon k={sortK} />}
@@ -127,7 +136,7 @@ export function HoldingsTable({
         )}
       </div>
 
-      <div className="table-scroll">
+      <div className="table-scroll rounded-b-2xl">
         <table className="w-full min-w-[680px]">
           <thead className="bg-surface-50 border-b border-surface-100">
             <tr>
@@ -158,23 +167,33 @@ export function HoldingsTable({
                 return (
                   <tr
                     key={asset.id}
+                    role={highlightLosses && isLoss ? "button" : "row"}
+                    tabIndex={highlightLosses && isLoss ? 0 : undefined}
                     className={cn(
-                      "border-b border-surface-50 transition-colors",
-                      highlightLosses && isLoss && "hover:bg-loss-50/40 cursor-pointer",
+                      "border-b border-surface-50 transition-colors last:border-0",
+                      highlightLosses && isLoss && "hover:bg-loss-50/40 cursor-pointer focus-visible:outline-none focus-visible:bg-loss-50/40",
                       highlightLosses && isLoss && isSelected && "bg-loss-50/60",
                       highlightLosses && !isLoss && "opacity-50"
                     )}
                     onClick={() => highlightLosses && isLoss && onToggle(asset.id)}
+                    onKeyDown={(e) => {
+                      if (highlightLosses && isLoss && (e.key === "Enter" || e.key === " ")) {
+                        e.preventDefault();
+                        onToggle(asset.id);
+                      }
+                    }}
                   >
                     {highlightLosses && (
                       <td className="px-4 py-3 w-10">
                         {isLoss && (
                           <input
                             type="checkbox"
+                            aria-label={`Select ${asset.name} for tax loss harvesting`}
                             checked={isSelected}
                             onChange={() => onToggle(asset.id)}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-4 h-4 rounded accent-brand-600 cursor-pointer"
+                            tabIndex={-1} // Handled by row
+                            className="w-4 h-4 rounded accent-brand-600 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                           />
                         )}
                       </td>

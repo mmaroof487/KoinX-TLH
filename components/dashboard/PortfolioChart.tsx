@@ -58,14 +58,14 @@ export function PortfolioChart({ assets, loading }: Props) {
   return (
     <div className="card p-5">
       <h3 className="font-display font-semibold text-ink-900 mb-4">Portfolio Composition</h3>
-      <ResponsiveContainer width="100%" height={200}>
-        <PieChart>
+      <ResponsiveContainer width="100%" height={250}>
+        <PieChart margin={{ top: 0, bottom: 20, left: 0, right: 0 }}>
           <Pie
             data={data}
             cx="50%"
-            cy="50%"
-            innerRadius={55}
-            outerRadius={85}
+            cy="45%"
+            innerRadius={60}
+            outerRadius={80}
             paddingAngle={2}
             dataKey="value"
           >

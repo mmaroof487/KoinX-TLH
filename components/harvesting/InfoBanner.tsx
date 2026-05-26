@@ -9,8 +9,9 @@ export function InfoBanner() {
   return (
     <div className="relative p-4 rounded-2xl bg-brand-50 border border-brand-100 animate-fade-in">
       <button
+        aria-label="Dismiss information"
         onClick={() => setDismissed(true)}
-        className="absolute top-3 right-3 p-1 rounded-lg text-brand-400 hover:text-brand-700 hover:bg-brand-100 transition-colors"
+        className="absolute top-3 right-3 p-1 rounded-lg text-brand-400 hover:text-brand-700 hover:bg-brand-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
       >
         <X className="w-3.5 h-3.5" />
       </button>
