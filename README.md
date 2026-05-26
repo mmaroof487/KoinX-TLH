@@ -1,124 +1,55 @@
-# KoinX — Tax Loss Harvesting Dashboard
+# KoinX - Tax Loss Harvesting Assignment
 
-A production-grade crypto tax dashboard built for the **KoinX Frontend Intern Assignment**. Simulates real-world tax loss harvesting: analyze your crypto portfolio, identify loss positions, and calculate potential tax savings.
+This repository contains the implementation for the KoinX Frontend Intern Assignment. The objective was to build a responsive and visually appealing **Tax Loss Harvesting Interface**, closely following the provided Figma design, while demonstrating advanced architectural skills in frontend development.
 
-**[Live Demo →](https://koinx-tlh.vercel.app)** _(deploy to Vercel to activate)_
+## 🚀 Features
 
-![Hero Screenshot](./public/hero-screenshot.png)
+- **Pixel-Perfect Figma Accuracy (Light Mode):** The default theme is rigorously matched to the assignment's Figma design, respecting the KoinX brand guidelines, typography, and spacing.
+- **Premium Custom Dark Mode:** Featuring a custom-built, vibrant "Cyber Neon" aesthetic with deep blacks and neon cyan accents. Fully implemented using a dynamic CSS variable architecture via `next-themes` (no flash of unstyled content).
+- **Fluid Micro-Interactions:** Enhanced with `framer-motion` to provide buttery-smooth physics-based animations. Table rows cascade into view, and dynamic panels dynamically expand open without rigid snapping.
+- **Robust State Management:** Built using `zustand` to manage complex portfolio states, selections, and tax calculations globally, keeping the React component tree clean and decoupled.
+- **Fully Responsive:** Optimized for both mobile and desktop viewports, with a mobile-friendly slide-out navigation menu.
 
-<div align="center">
-  <img src="./public/mobile-screenshot.png" alt="Mobile View" width="300" />
-</div>
+## 📸 Previews
 
----
+### Light Mode (Figma Accurate)
+![Light Mode](./public/light-mode.png)
 
-## Features
+### Dark Mode (Premium Neon Aesthetic)
+![Dark Mode](./public/dark-mode.png)
 
-- **Portfolio Overview** — Total value, unrealized P&L, taxable gains, estimated tax liability
-- **Tax Loss Harvesting** — Select loss-position assets to compute before/after tax impact
-- **Interactive Holdings Table** — Sortable columns, checkbox selection, mobile-responsive with horizontal scroll
-- **Real-time Impact Panel** — Live computation of harvested losses, new tax liability, and savings
-- **Portfolio Composition Chart** — Donut chart of allocation by asset
-- **Success Modal** — Confirmation of simulated harvest with a summary
-- **Loading & Error States** — Skeleton loaders, error fallback with retry
-- **Mobile-First Responsive** — Works cleanly on 320px → 1440px+
-- **Production Ready** — Strict TypeScript, linted, accessible (WCAG compliant), and optimized for performance.
+## 🛠 Tech Stack
 
----
+- **Framework:** Next.js 14 (App Router)
+- **Styling:** Tailwind CSS (Custom variable injection for themes)
+- **State Management:** Zustand
+- **Animations:** Framer Motion
+- **Icons & Primitives:** Lucide React, Radix UI
+- **Typography:** Next Fonts (Inter, Syne, JetBrains Mono)
+- **Language:** TypeScript
 
-## Tech Stack
+## ⚙️ Running Locally
 
-| Layer | Choice |
-|-------|--------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| State | Zustand |
-| Charts | Recharts |
-| UI Primitives | Radix UI (Dialog, Tooltip) |
-| Animation | Framer Motion (layout transitions) |
-| Icons | Lucide React |
-| Fonts | Syne (display) + Inter (body) |
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mmaroof487/KoinX-TLH.git
+   cd KoinX-TLH
+   ```
 
----
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Project Structure
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-```
-koinx-tlh/
-├── app/
-│   ├── layout.tsx          # Root layout, metadata
-│   ├── page.tsx            # Main TLH page (composition root)
-│   └── globals.css         # Tailwind base + custom CSS
-├── components/
-│   ├── ui/                 # Primitive components (Button, Skeleton, PnLBadge, Tooltip, ErrorState)
-│   ├── dashboard/          # Feature components (PortfolioSummary, HoldingsTable, PortfolioChart)
-│   ├── harvesting/         # Harvesting-specific (HarvestingPanel, HarvestSuccessModal, InfoBanner)
-│   └── shared/             # App shell (Navbar)
-├── hooks/
-│   └── usePortfolioStore.ts # Zustand store — assets, selection, computed getters
-├── lib/
-│   └── calculations.ts      # Pure business logic (portfolio summary, harvesting math)
-├── mock-data/
-│   └── portfolio.ts         # 10 realistic crypto assets with buy/current prices
-├── types/
-│   └── index.ts             # CryptoAsset, PortfolioSummary, HarvestingResult, TaxConfig
-└── utils/
-    ├── format.ts            # fmt helpers (USD, %, number), cn(), pnlColor()
-    └── api.ts               # Async mock API with simulated latency
-```
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
+## 📐 Architecture Highlights
 
-## Setup
-
-```bash
-# Clone and install
-git clone https://github.com/YOUR_USER/koinx-tlh.git
-cd koinx-tlh
-npm install
-
-# Dev server
-npm run dev
-# → http://localhost:3000
-
-# Type check
-npm run type-check
-
-# Build
-npm run build
-```
-
----
-
-## Architecture Decisions
-
-### State: Zustand over Context
-Context re-renders the full tree on any state change. Zustand's selector model ensures only subscribed components re-render. The store exposes computed getters (`getSummary`, `getHarvestingResult`) so derived data is never stale.
-
-### Business Logic Separation
-All tax math lives in `lib/calculations.ts` as pure functions. Components never compute — they only display. This makes the logic independently testable and easy to audit.
-
-### Mock API Pattern
-`utils/api.ts` wraps data in an `async` function with `setTimeout`, simulating real network latency. Swapping to a real API requires only changing this one file.
-
-### Table Responsiveness
-Rather than collapsing columns (which loses information density), the table uses horizontal scroll on mobile with a visible scrollbar. A `min-width` on the table container ensures no layout shifting.
-
-### Tax Rate Assumptions
-- India crypto tax: flat 30% on all gains (short-term and long-term treated identically)
-- 4% cess (health & education surcharge) applied on top
-- Effective rate: 31.2%
-- No indexation benefit for crypto under Indian IT Act
-
----
-
-## Tradeoffs
-
-| Decision | Tradeoff |
-|----------|----------|
-| Zustand (not Context) | Slight bundle size increase; worth it for selector-level re-render control |
-| Radix UI primitives | Accessibility + keyboard nav for free; adds ~15KB |
-| Recharts | Mature, SSR-safe; D3 would give more control but far more code |
-| No React Query | Portfolio is loaded once per session; SWR/RQ overhead not justified for mock data |
-| Flat 30% tax rate | Simplification; real India crypto tax has nuances around VDA classification |
+- **Dynamic Theming:** Unlike traditional Tailwind `dark:` classes, this project uses a CSS-variable-first approach. All semantic colors (`bg-surface-50`, `text-ink-900`) reference global CSS tokens that instantly swap HSL values when the `<html class="dark">` attribute is toggled by `next-themes`. This makes the application easily scalable for multiple themes.
+- **Decoupled Logic:** The complex loss/gain algorithms and array manipulation are lifted out of the React UI components and managed in isolated store actions (`hooks/usePortfolioStore.ts` and `lib/calculations.ts`), ensuring pure render cycles and easy testability.
+- **Accessible Tooltips & Modals:** Leveraging Radix UI to ensure that hover states, popups, and the final "Success" modal maintain strict WAI-ARIA accessibility compliance.
