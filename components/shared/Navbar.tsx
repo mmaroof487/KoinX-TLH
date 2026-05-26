@@ -1,12 +1,19 @@
 // components/shared/Navbar.tsx
 "use client";
 import Link from "next/link";
-import { BarChart2, Bell, User, Menu, X } from "lucide-react";
+import { BarChart2, Bell, User, Menu, X, Sun, Moon } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-surface-50/80 backdrop-blur-xl border-b border-white/5">
@@ -31,6 +38,15 @@ export function Navbar() {
 
           {/* Actions & Mobile Menu Toggle */}
           <div className="flex items-center gap-3">
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                aria-label="Toggle theme"
+                className="p-1.5 rounded-lg text-ink-400 hover:text-ink-700 hover:bg-surface-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              >
+                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
+            )}
             <button aria-label="Notifications" className="p-1.5 rounded-lg text-ink-400 hover:text-ink-700 hover:bg-surface-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
               <Bell className="w-4 h-4" />
             </button>

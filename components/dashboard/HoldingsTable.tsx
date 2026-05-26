@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import { ArrowUpDown, ArrowUp, ArrowDown, Info } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { fmt, pnlColor, cn } from "@/utils/format";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { PnLBadge } from "@/components/ui/PnLBadge";
@@ -149,7 +150,8 @@ export function HoldingsTable({
               <ColHeader label="P&L %" sortK="unrealizedPnLPct" />
             </tr>
           </thead>
-          <tbody>
+          <motion.tbody layout>
+            <AnimatePresence>
             {loading
               ? Array.from({ length: 5 }).map((_, i) => <SkeletonRow key={i} />)
               : sorted.length === 0
@@ -160,12 +162,17 @@ export function HoldingsTable({
                   </td>
                 </tr>
               )
-              : sorted.map((asset) => {
+              : sorted.map((asset, i) => {
                 const isSelected = selectedIds.has(asset.id);
                 const isLoss = asset.status === "loss";
 
                 return (
-                  <tr
+                  <motion.tr
+                    layout
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: i * 0.03, duration: 0.2 }}
                     key={asset.id}
                     role={highlightLosses && isLoss ? "button" : "row"}
                     tabIndex={highlightLosses && isLoss ? 0 : undefined}
@@ -223,11 +230,12 @@ export function HoldingsTable({
                     <td className="px-4 py-3">
                       <PnLBadge value={asset.unrealizedPnL} pct={asset.unrealizedPnLPct} />
                     </td>
-                  </tr>
+                  </motion.tr>
                 );
               })
             }
-          </tbody>
+            </AnimatePresence>
+          </motion.tbody>
         </table>
       </div>
     </div>

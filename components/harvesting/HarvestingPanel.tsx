@@ -2,6 +2,7 @@
 "use client";
 import { useMemo } from "react";
 import { ArrowRight, Sparkles, CheckCircle2, AlertCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { fmt, cn } from "@/utils/format";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Button } from "@/components/ui/Button";
@@ -33,14 +34,18 @@ function CompareRow({ label, before, after, positive, highlight }: CompareRowPro
       <div className="flex items-center gap-3">
         <span className="text-sm font-medium text-ink-700">{before}</span>
         <ArrowRight className="w-3.5 h-3.5 text-ink-500 flex-shrink-0" />
-        <span className={cn(
-          "text-sm font-semibold tracking-tight",
-          positive === true && "text-gain-400",
-          positive === false && "text-loss-400",
-          positive === undefined && "text-white"
-        )}>
+        <motion.span
+          key={after}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={cn(
+            "text-sm font-semibold tracking-tight",
+            positive === true && "text-gain-400",
+            positive === false && "text-loss-400",
+            positive === undefined && "text-ink-900"
+          )}>
           {after}
-        </span>
+        </motion.span>
       </div>
     </div>
   );
@@ -105,8 +110,16 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
         </div>
 
         {/* Savings highlight */}
-        {hasSavings && selectedCount > 0 ? (
-          <div className="mb-6 p-4 rounded-xl bg-gain-500/10 border border-gain-500/20 relative overflow-hidden group">
+        <AnimatePresence mode="popLayout">
+          {hasSavings && selectedCount > 0 ? (
+            <motion.div
+              key="savings"
+              initial={{ opacity: 0, height: 0, scale: 0.95 }}
+              animate={{ opacity: 1, height: "auto", scale: 1 }}
+              exit={{ opacity: 0, height: 0, scale: 0.95 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="mb-6 p-4 rounded-xl bg-gain-500/10 border border-gain-500/20 relative overflow-hidden group"
+            >
             <div className="absolute inset-0 bg-gradient-to-r from-gain-500/0 via-gain-500/10 to-gain-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
             <div className="flex items-start gap-3 relative">
               <CheckCircle2 className="w-5 h-5 text-gain-400 flex-shrink-0 mt-0.5" />
@@ -119,17 +132,25 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
                 </p>
               </div>
             </div>
-          </div>
-        ) : selectedCount > 0 && !hasSavings ? (
-          <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
+            </motion.div>
+          ) : selectedCount > 0 && !hasSavings ? (
+            <motion.div
+              key="no-savings"
+              initial={{ opacity: 0, height: 0, scale: 0.95 }}
+              animate={{ opacity: 1, height: "auto", scale: 1 }}
+              exit={{ opacity: 0, height: 0, scale: 0.95 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10"
+            >
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-ink-400 flex-shrink-0 mt-0.5" />
               <p className="text-xs text-ink-400 font-medium leading-relaxed">
                 Selected assets don't reduce your current tax liability. Try selecting different assets.
               </p>
             </div>
-          </div>
-        ) : null}
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
 
         {/* CTA */}
         <Button
