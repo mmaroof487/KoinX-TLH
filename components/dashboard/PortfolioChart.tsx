@@ -7,13 +7,16 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import type { CryptoAsset } from "@/types";
 
 const COLORS = [
-  "#00ffcc", // brand-500
-  "#33ffd6", // brand-400
-  "#00ccaa", // brand-600
-  "#009980", // brand-700
-  "#99ffeb", // brand-200
-  "#a3a3a3", // ink-500
-  "#525252", // ink-300
+  "#00ffcc", // Brand Cyan
+  "#8b5cf6", // Neon Purple
+  "#ec4899", // Vibrant Pink
+  "#eab308", // Bright Yellow
+  "#3b82f6", // Electric Blue
+  "#10b981", // Emerald Green
+  "#f97316", // Neon Orange
+  "#6366f1", // Indigo
+  "#14b8a6", // Teal
+  "#64748b", // Slate Gray
 ];
 
 interface Props {
@@ -80,8 +83,9 @@ export function PortfolioChart({ assets, loading }: Props) {
           </Pie>
           <Tooltip content={<CustomTooltip />} />
           <Legend
+            iconType="square"
             formatter={(value) => (
-              <span className="text-xs text-ink-600">{value}</span>
+              <span className="text-xs text-ink-400 tracking-wide uppercase">{value}</span>
             )}
           />
         </PieChart>

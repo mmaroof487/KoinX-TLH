@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Syne, JetBrains_Mono } from "next/font/google";
 import { Providers } from "./providers";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { BackgroundGlow } from "@/components/ui/BackgroundGlow";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,7 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${syne.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Providers>{children}</Providers>
+          <Providers>
+            <BackgroundGlow />
+            <div className="relative z-10">{children}</div>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

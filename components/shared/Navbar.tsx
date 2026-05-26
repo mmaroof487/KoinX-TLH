@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BarChart2, Bell, User, Menu, X, Sun, Moon } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 
 export function Navbar() {
@@ -30,9 +31,13 @@ export function Navbar() {
           </Link>
 
           {/* Nav links — desktop */}
-          <nav className="hidden md:flex items-center gap-6 text-sm text-ink-500 font-medium">
-            <Link href="/" className="text-brand-500 font-semibold drop-shadow-[0_0_8px_rgba(0,255,204,0.4)]">
+          <nav className="hidden md:flex items-center gap-6 text-sm text-ink-500 font-medium relative">
+            <Link href="/" className="relative px-3 py-1.5 text-brand-400 font-semibold drop-shadow-[0_0_8px_rgba(0,255,204,0.4)]">
               Tax Harvesting
+              <motion.div 
+                layoutId="activeUnderline"
+                className="absolute -bottom-1 left-3 right-3 h-0.5 bg-brand-400 shadow-[0_0_10px_rgba(0,255,204,0.8)]"
+              />
             </Link>
           </nav>
 
@@ -84,7 +89,7 @@ export function Navbar() {
               <Link
                 href="/"
                 onClick={() => setOpen(false)}
-                className="block px-3 py-2 rounded-xl text-base font-medium text-brand-500 bg-brand-500/10"
+                className="block px-3 py-2 rounded-xl text-base font-medium text-brand-500 hover:bg-brand-500/5 transition-colors"
               >
                 Tax Harvesting
               </Link>

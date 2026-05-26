@@ -152,23 +152,61 @@ export function HarvestingPanel({ summary, harvestingResult, selectedCount, load
           ) : null}
         </AnimatePresence>
 
-        {/* CTA */}
-        <Button
-          className={cn(
-            "w-full h-12 shadow-xl",
-            (!hasSavings || selectedCount === 0) && "bg-white/10 text-white/50 hover:bg-white/10 border-transparent hover:shadow-none hover:-translate-y-0"
+        {/* Progress Bar for Tax Offset */}
+        <AnimatePresence>
+          {hasSavings && selectedCount > 0 && summary.totalTaxableGains > 0 && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mb-6 space-y-2"
+            >
+              <div className="flex justify-between text-xs font-semibold text-ink-400 uppercase tracking-widest">
+                <span>Tax Offset Progress</span>
+                <span className="text-brand-400">{Math.min(100, (harvestingResult.totalHarvestableLoss / summary.totalTaxableGains) * 100).toFixed(0)}%</span>
+              </div>
+              <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden relative border border-white/10">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${Math.min(100, (harvestingResult.totalHarvestableLoss / summary.totalTaxableGains) * 100)}%` }}
+                  transition={{ duration: 0.8, type: "spring", bounce: 0 }}
+                  className="absolute top-0 left-0 h-full bg-brand-500 rounded-full shadow-[0_0_15px_rgba(0,255,204,0.6)]"
+                />
+              </div>
+            </motion.div>
           )}
-          size="lg"
-          disabled={selectedCount === 0 || !hasSavings}
-          onClick={onHarvest}
-        >
-          <Sparkles className={cn("w-4 h-4", (!hasSavings || selectedCount === 0) ? "opacity-50" : "text-surface-50")} />
-          {selectedCount === 0
-            ? "Select assets to harvest"
-            : hasSavings
-            ? `Harvest ${selectedCount} Asset${selectedCount > 1 ? "s" : ""}`
-            : "No savings available"}
-        </Button>
+        </AnimatePresence>
+
+        {/* CTA */}
+        <div className="relative group">
+          <div className={cn(
+            "absolute -inset-0.5 bg-gradient-to-r from-brand-400 to-purple-500 rounded-xl blur opacity-0 transition duration-500",
+            hasSavings && selectedCount > 0 && "group-hover:opacity-75 animate-pulse"
+          )}></div>
+          <Button
+            className={cn(
+              "w-full h-12 shadow-xl relative",
+              (!hasSavings || selectedCount === 0) 
+                ? "bg-white/5 text-white/40 hover:bg-white/5 border border-white/10 hover:shadow-none hover:-translate-y-0"
+                : "bg-surface-50 text-brand-400 hover:text-brand-300 border border-brand-500/30 hover:border-brand-500/50 shadow-[inset_0_0_20px_rgba(0,255,204,0.15)] overflow-hidden"
+            )}
+            size="lg"
+            disabled={selectedCount === 0 || !hasSavings}
+            onClick={onHarvest}
+          >
+            {hasSavings && selectedCount > 0 && (
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-500/0 via-brand-500/10 to-brand-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+            )}
+            <Sparkles className={cn("w-4 h-4 z-10", (!hasSavings || selectedCount === 0) ? "opacity-50" : "text-brand-400")} />
+            <span className="z-10 relative">
+              {selectedCount === 0
+                ? "Select assets to harvest"
+                : hasSavings
+                ? `Harvest ${selectedCount} Asset${selectedCount > 1 ? "s" : ""}`
+                : "No savings available"}
+            </span>
+          </Button>
+        </div>
 
         <p className="mt-4 text-center text-[11px] font-medium text-ink-500 tracking-wide uppercase">
           Tax harvesting is simulated
