@@ -89,7 +89,7 @@ export function HoldingsTable({
 
   function ColHeader({ label, sortK, tooltip }: { label: string; sortK?: SortKey; tooltip?: string }) {
     return (
-      <th className="px-4 py-3 text-left whitespace-nowrap">
+      <th className="px-4 py-3 text-left">
         <div
           role={sortK ? "button" : undefined}
           tabIndex={sortK ? 0 : undefined}
@@ -137,8 +137,8 @@ export function HoldingsTable({
         )}
       </div>
 
-      <div className="table-scroll rounded-b-2xl">
-        <table className="w-full min-w-[680px]">
+      <div className="w-full overflow-hidden rounded-b-2xl">
+        <table className="w-full">
           <thead className="bg-surface-50/50 border-b border-surface-200">
             <tr>
               {highlightLosses && <th className="w-10 px-4" />}
